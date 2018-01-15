@@ -4,18 +4,6 @@ namespace Jeckel\EloquentSignature;
 trait HasSignature
 {
     /**
-     * List of properties to include in the signature calculation
-     * @var array
-     */
-    protected static $signatureProperties = [];
-
-    /**
-     * Salt to include in the signature calculation
-     * @var string
-     */
-    protected static $signatureSalt = '';
-
-    /**
      * Boot the Traits : register events
      */
     public static function bootHasSignature()
@@ -29,24 +17,6 @@ trait HasSignature
         static::saving(function(Signable $model) {
             $model->{$model->getSignatureFieldName()} = $model->generateSignature();
         });
-    }
-
-    /**
-     * Define fields to use in the signature calculation
-     * @param array $properties
-     */
-    protected static function setSignatureProperties(array $properties)
-    {
-        self::$signatureProperties = $properties;
-    }
-
-    /**
-     * Define salt to include in the signature calculation
-     * @param $salt
-     */
-    protected static function setSignatureSalt($salt)
-    {
-        self::$signatureSalt = $salt;
     }
 
     /**
